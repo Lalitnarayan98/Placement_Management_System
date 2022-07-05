@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.placement.entity.Job;
 import com.placement.entity.Student;
-import com.placement.exceptions.NotFoundException;
+import com.placement.exceptions.DataNotFoundException;
 import com.placement.service.StudentService;
 
 @SpringBootTest
@@ -60,7 +60,7 @@ class PlacementMgmtSystemApplicationTests {
 	@Test
 	public void findStudentByUsernameAndPasswordTest1() {
 //		Student student = studentServ.findStudentByUsernameAndPassword("lalit", "pas");
-		Exception ex= assertThrows(NotFoundException.class,()->{
+		Exception ex= assertThrows(DataNotFoundException.class,()->{
 			studentServ.findStudentByUsernameAndPassword("lalit", "pas");
 		});
 		String actualMsg = ex.getMessage();
@@ -72,7 +72,7 @@ class PlacementMgmtSystemApplicationTests {
 	@Test
 	public void findStudentByIdTest() {
 //		Student student = studentServ.findStudentByUsernameAndPassword("lalit", "pas");
-		Exception ex= assertThrows(NotFoundException.class,()->{
+		Exception ex= assertThrows(DataNotFoundException.class,()->{
 			studentServ.findStudentById(7l);
 		});
 		String actualMsg = ex.getMessage();

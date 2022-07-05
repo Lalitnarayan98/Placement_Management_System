@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.placement.entity.Student;
-import com.placement.exceptions.NotFoundException;
+import com.placement.exceptions.DataNotFoundException;
 import com.placement.repository.StudentRepository;
 
 @Service
@@ -25,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
 
 		Student result = studentRepo.findByUsername(theStudent.getUsername());
 		if (result != null) {
-			throw new NotFoundException("Username Already registerd, Try with different username ?");
+			throw new DataNotFoundException("Username Already registerd, Try with different username ?");
 		} else {
 			Student student = studentRepo.save(theStudent);
 			return student;
@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> findAllStudent() {
 		List<Student> allStudent = studentRepo.findAll();
 		if (allStudent.size() == 0) {
-			throw new NotFoundException("Student list is empty !!!");
+			throw new DataNotFoundException("Student list is empty !!!");
 		}
 
 		return allStudent;
@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
 			studentRepo.save(student);
 			return student;
 		} else
-			throw new NotFoundException("Student  is not available !!!");
+			throw new DataNotFoundException("Student  is not available !!!");
 
 	}
 
@@ -62,7 +62,7 @@ public class StudentServiceImpl implements StudentService {
 			studentRepo.deleteById(theId);
 
 		else
-			throw new NotFoundException("Student is not available !!!");
+			throw new DataNotFoundException("Student is not available !!!");
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class StudentServiceImpl implements StudentService {
 		Student student = studentRepo.findByUsernameAndPassword(username, password);
 
 		if (student == null)
-			throw new NotFoundException("Invalid Credential !!!");
+			throw new DataNotFoundException("Invalid Credential !!!");
 		return student;
 	}
 
@@ -83,7 +83,7 @@ public class StudentServiceImpl implements StudentService {
 		if (result.isPresent()) {
 			student = result.get();
 		} else {
-			throw new NotFoundException("Student not found !!, whose ID is " + id);
+			throw new DataNotFoundException("Student not found !!, whose ID is " + id);
 		}
 		return student;
 	}
@@ -93,7 +93,7 @@ public class StudentServiceImpl implements StudentService {
 		List<Student> sortedByDescStudent = studentRepo.findAllByOrderByIdDesc();
 
 		if (sortedByDescStudent.size() == 0) {
-			throw new NotFoundException("Student list is empty !!!");
+			throw new DataNotFoundException("Student list is empty !!!");
 		}
 		return sortedByDescStudent;
 	}

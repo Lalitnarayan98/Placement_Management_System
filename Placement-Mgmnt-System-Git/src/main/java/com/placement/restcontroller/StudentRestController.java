@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.placement.entity.Student;
-import com.placement.exceptions.NotFoundException;
+import com.placement.exceptions.DataNotFoundException;
 import com.placement.service.StudentService;
 
 @RestController

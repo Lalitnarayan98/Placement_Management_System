@@ -26,7 +26,7 @@ public class RecruiterRestController {
 	
 	@PostMapping("/")
 	public Recruiter saveRecruiter(@Valid @RequestBody Recruiter recruiter) {
-		Recruiter theRecruiter = recruiterService.saveOrUpdate(recruiter);
+		Recruiter theRecruiter = recruiterService.save(recruiter);
 		return theRecruiter;
 	}
 	
@@ -46,8 +46,8 @@ public class RecruiterRestController {
 	}
 	
 	@PutMapping("/")
-	public Recruiter updateRecruiter(@RequestBody Recruiter recruiter) {
-		Recruiter result = recruiterService.saveOrUpdate(recruiter);
+	public Recruiter updateRecruiter( @Valid@RequestBody Recruiter recruiter) {
+		Recruiter result = recruiterService.update(recruiter);
 		
 //		System.err.println("Updated");
 		return result;

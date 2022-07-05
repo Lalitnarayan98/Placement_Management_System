@@ -6,7 +6,9 @@ import com.placement.entity.Recruiter;
 
 public interface RecruiterService {
 	
-	public Recruiter saveOrUpdate(Recruiter recruiter);
+	public Recruiter save(Recruiter recruiter);
+	
+	public Recruiter update(Recruiter recruiter);
 	
 	public List<Recruiter> findAllRecruiters();
 	

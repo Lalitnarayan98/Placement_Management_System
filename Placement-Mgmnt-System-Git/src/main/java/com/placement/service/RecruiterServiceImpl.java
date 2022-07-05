@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.placement.entity.Recruiter;
-import com.placement.exceptions.NotFoundException;
+import com.placement.exceptions.DataNotFoundException;
 import com.placement.repository.RecruiterRepository;
 
 @Service
@@ -21,13 +21,13 @@ public class RecruiterServiceImpl implements RecruiterService {
 	}
 
 	@Override
-	public Recruiter saveOrUpdate(Recruiter recruiter) {
+	public Recruiter save(Recruiter recruiter) {
 //		Recruiter  recruiters = recruiterRepository.save(recruiter);
 //		return recruiters;
 
 		Recruiter result = recruiterRepository.findByRecruiterName(recruiter.getRecruiterName());
 		if (result != null) {
-			throw new NotFoundException("Recruiter-name is already registerd, Try with different name ?");
+			throw new DataNotFoundException("Recruiter-name is already registerd, Try with different name ?");
 		} else {
 			Recruiter recruiters = recruiterRepository.save(recruiter);
 			return recruiters;
@@ -43,7 +43,7 @@ public class RecruiterServiceImpl implements RecruiterService {
 			theRecruiter = result.get();
 			return theRecruiter;
 		} else
-			throw new NotFoundException("Recruiter is not available whose id is " + id);
+			throw new DataNotFoundException("Recruiter is not available whose id is " + id);
 
 	}
 
@@ -55,14 +55,14 @@ public class RecruiterServiceImpl implements RecruiterService {
 			recruiterRepository.delete(theRecruiter);
 			return theRecruiter;
 		} else
-			throw new NotFoundException("Recruiter is not available whose id is " + id);
+			throw new DataNotFoundException("Recruiter is not available whose id is " + id);
 	}
 
 	@Override
 	public List<Recruiter> findByCompanyName(String companyName) {
 		List<Recruiter> recruiters = recruiterRepository.findByCompanyName(companyName);
 		if (recruiters.size() == 0) {
-			throw new NotFoundException(companyName + " is not available in our list !!");
+			throw new DataNotFoundException(companyName + " is not available in our list !!");
 		}
 		return recruiters;
 	}
@@ -71,7 +71,7 @@ public class RecruiterServiceImpl implements RecruiterService {
 	public List<Recruiter> findAllRecruiters() {
 		List<Recruiter> recruiters = recruiterRepository.findAll();
 		if (recruiters.size() == 0) {
-			throw new NotFoundException("List is empty !!");
+			throw new DataNotFoundException("List is empty !!");
 		}
 		return recruiters;
 	}
@@ -81,7 +81,7 @@ public class RecruiterServiceImpl implements RecruiterService {
 		List<Recruiter> recruiters = recruiterRepository.findAllByOrderByRecruiterNameDesc();
 
 		if (recruiters.size() == 0) {
-			throw new NotFoundException("List is empty !!");
+			throw new DataNotFoundException("List is empty !!");
 		}
 		return recruiters;
 	}
@@ -90,9 +90,15 @@ public class RecruiterServiceImpl implements RecruiterService {
 	public Recruiter findByRecruiterName(String name) {
 		Recruiter recruiter = recruiterRepository.findByRecruiterName(name);
 		if (recruiter == null) {
-			throw new NotFoundException("Recruiter not found !!!");
+			throw new DataNotFoundException("Recruiter not found !!!");
 		}
 		return recruiter;
+	}
+	
+	public Recruiter update(Recruiter recruiter) {		
+			Recruiter recruiters = recruiterRepository.save(recruiter);
+			return recruiters;
+		
 	}
 
 }

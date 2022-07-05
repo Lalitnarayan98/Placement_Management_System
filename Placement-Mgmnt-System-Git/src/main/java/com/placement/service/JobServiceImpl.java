@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.placement.entity.Job;
-import com.placement.exceptions.NotFoundException;
+import com.placement.exceptions.DataNotFoundException;
 import com.placement.repository.JobsRepository;
 
 @Service
@@ -24,7 +24,7 @@ public class JobServiceImpl implements JobService {
 	public Job saveOrUpdate(Job jobs) {
 		Job job = jobRepo.save(jobs);
 		if (job == null) {
-			throw new NotFoundException("Something Went Wrong");
+			throw new DataNotFoundException("Something Went Wrong");
 		}
 		return job;
 	}
@@ -33,7 +33,7 @@ public class JobServiceImpl implements JobService {
 	public List<Job> findAllJobs() {
 		List<Job> jobList = jobRepo.findAll();
 		if (jobList.size() == 0)
-			throw new NotFoundException("Currently list is empty !");
+			throw new DataNotFoundException("Currently list is empty !");
 		return jobList;
 	}
 
@@ -43,7 +43,7 @@ public class JobServiceImpl implements JobService {
 
 		Job theJob = null;
 		if (!result.isPresent()) {
-			throw new NotFoundException(" Job is not found !!!, whose id is  " + id);
+			throw new DataNotFoundException(" Job is not found !!!, whose id is  " + id);
 
 		} else {
 			theJob = result.get();
@@ -58,7 +58,7 @@ public class JobServiceImpl implements JobService {
 		if (theJob != null)
 			jobRepo.delete(theJob);
 		else
-			throw new NotFoundException("Job not found!!!");
+			throw new DataNotFoundException("Job not found!!!");
 		return theJob;
 	}
 
@@ -67,7 +67,7 @@ public class JobServiceImpl implements JobService {
 		List<Job> jobs = jobRepo.findByRole(role);
 //		System.err.println(jobs.size());
 		if (jobs.size() == 0) {
-			throw new NotFoundException("Currently this job is not available !!");
+			throw new DataNotFoundException("Currently this job is not available !!");
 		}
 		return jobs;
 	}
@@ -79,7 +79,7 @@ public class JobServiceImpl implements JobService {
 		if (jobs.size() > 0) {
 			return jobs;
 		} else
-			throw new NotFoundException("Student is not applied any job !!!");
+			throw new DataNotFoundException("Student is not applied any job !!!");
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class JobServiceImpl implements JobService {
 		List<Job> list = jobRepo.findAllByRecruiterId(id);
 
 		if (list.size() == 0)
-			throw new NotFoundException(" This recruiter whose id is " + id + " didn't post any jobs");
+			throw new DataNotFoundException(" This recruiter whose id is " + id + " didn't post any jobs");
 		return list;
 	}
 

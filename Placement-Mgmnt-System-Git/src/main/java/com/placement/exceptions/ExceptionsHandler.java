@@ -14,7 +14,7 @@ public class ExceptionsHandler {
 //	Method for handle all not found exception => 404
 
 	@ExceptionHandler
-	public ResponseEntity<ExceptionResponse> handleException(NotFoundException er) {
+	public ResponseEntity<ExceptionResponse> handleException(DataNotFoundException er) {
 
 		ExceptionResponse err = new ExceptionResponse();
 
